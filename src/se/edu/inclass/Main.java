@@ -37,11 +37,10 @@ public class Main {
     }
 
     public static void printDeadlines(ArrayList<Task> tasksData) {
-        for (Task t : tasksData) {
-            if (t instanceof Deadline) {
-                System.out.println(t);
-            }
-        }
+        printTaskStream(tasksData.stream()
+                .filter((task) -> task instanceof Deadline));
+    }
+
     public static void printTaskStream(Stream<Task> taskStream) {
         taskStream
                 .forEach((task) -> {
