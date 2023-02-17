@@ -6,6 +6,7 @@ import se.edu.inclass.task.Task;
 import se.edu.inclass.task.TaskNameComparator;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -22,7 +23,8 @@ public class Main {
         printDeadlines(tasksData);
 
         System.out.println("Total number of deadlines: " + countDeadlines(tasksData));
-
+        ArrayList<Task> filteredList = filterTaskList("task", tasksData);
+        printData(filteredList);
     }
 
     private static int countDeadlines(ArrayList<Task> tasksData) {
@@ -35,6 +37,12 @@ public class Main {
         return count;
     }
 
+    private static ArrayList<Task> filterTaskList(String filterString, ArrayList<Task> tasksData) {
+        return (ArrayList<Task>) tasksData.stream()
+                .filter(t -> t.getDescription().contains(filterString))
+                .collect(Collectors.toList());
+    }
+
     public static void printData(ArrayList<Task> tasksData) {
         for (Task t : tasksData) {
             System.out.println(t);
@@ -42,10 +50,9 @@ public class Main {
     }
 
     public static void printDeadlines(ArrayList<Task> tasksData) {
-        for (Task t : tasksData) {
-            if (t instanceof Deadline) {
-                System.out.println(t);
-            }
-        }
+        tasksData.stream()
+                .filter(t -> t instanceof Deadline)
+                .sorted((a, b) -> a.getDescription().compareToIgnoreCase(b.getDescription()))
+                .forEach(System.out::println);
     }
 }
