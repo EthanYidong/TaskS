@@ -6,6 +6,7 @@ import se.edu.inclass.task.Task;
 import se.edu.inclass.task.TaskNameComparator;
 
 import java.util.ArrayList;
+import java.util.stream.Stream;
 
 public class Main {
 
@@ -32,9 +33,7 @@ public class Main {
     }
 
     public static void printData(ArrayList<Task> tasksData) {
-        for (Task t : tasksData) {
-            System.out.println(t);
-        }
+        printTaskStream(tasksData.stream());
     }
 
     public static void printDeadlines(ArrayList<Task> tasksData) {
@@ -43,5 +42,10 @@ public class Main {
                 System.out.println(t);
             }
         }
+    public static void printTaskStream(Stream<Task> taskStream) {
+        taskStream
+                .forEach((task) -> {
+                    System.out.println(task);
+                });
     }
 }
