@@ -26,13 +26,9 @@ public class Main {
     }
 
     private static int countDeadlines(ArrayList<Task> tasksData) {
-        int count = 0;
-        for (Task t : tasksData) {
-            if (t instanceof Deadline) {
-                count++;
-            }
-        }
-        return count;
+        return (int) tasksData.stream()
+                .filter((t) -> t instanceof Deadline)
+                .count();
     }
 
     public static void printData(ArrayList<Task> tasksData) {
